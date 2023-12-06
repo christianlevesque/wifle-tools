@@ -8,7 +8,7 @@ public class FileWriter : IFileWriter
 	private string _baseDirectory = string.Empty;
 
 	/// <inheritdoc />
-	public string BaseAppFolderName => "Siteveyor";
+	public string BaseAppFolderName => "WifleTools";
 
 	/// <inheritdoc />
 	public string BaseDirectory
@@ -26,10 +26,13 @@ public class FileWriter : IFileWriter
 			return _baseDirectory;
 		}
 	}
+
+	public string DbContextFullPath => Path.Combine(BaseDirectory, AppDbContext.SqliteDbName);
 }
 
 public interface IFileWriter
 {
 	string BaseDirectory { get; }
 	string BaseAppFolderName { get; }
+	string DbContextFullPath { get; }
 }
