@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<OutputType>exe</OutputType>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<RootNamespace>WifleTools</RootNamespace>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="ElectronNET.API" Version="13.5.1"/>
+		<PackageReference Include="MudBlazor" Version="6.11.1"/>
+	</ItemGroup>
+	<ItemGroup>
+		<Content Update="electron.manifest.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\WifleTools.Services\WifleTools.Services.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="Pages\Settings\Domains.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\Settings\Hosting.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\Settings\Index.razor" />
+	  <_ContentIncludedByDefault Remove="Shared\Images\ThemedImage.razor" />
+	</ItemGroup>
+</Project>

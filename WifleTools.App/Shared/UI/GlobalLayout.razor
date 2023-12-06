@@ -1,0 +1,19 @@
+﻿<PageTitle>WifleTools</PageTitle>
+
+<MudThemeProvider Theme="new DefaultTheme()"
+                  IsDarkMode="true"/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+<MudLayout Class="min-vh-100">
+	<NavMenu/>
+
+	<MudMainContent>
+		@ChildContent
+	</MudMainContent>
+</MudLayout>
+
+@code {
+	[Parameter]
+	public RenderFragment? ChildContent { get; set; }
+}

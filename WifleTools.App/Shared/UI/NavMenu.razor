@@ -1,0 +1,46 @@
+﻿@using System
+@inject State.NavMenuState NavMenuState
+
+<MudDrawer Elevation="0"
+           Variant="DrawerVariant.Persistent"
+           Open>
+	<MudDrawerHeader Class="flex-column">
+		<MudText Typo="Typo.h4">
+			Wifle Tools
+		</MudText>
+
+		<MudText Typo="Typo.h6">
+			@NavMenuState.Subtext
+		</MudText>
+	</MudDrawerHeader>
+	<MudNavMenu>
+		@if (!string.IsNullOrEmpty(NavMenuState.BackUrl))
+        {
+            <MudNavLink Href="@NavMenuState.BackUrl"
+                        Icon="@Icons.Material.Filled.ArrowBack"
+                        IconColor="Color.Inherit"
+                        Match="NavLinkMatch.All">
+            	Go back
+            </MudNavLink>
+        }
+
+        @foreach (var navItem in NavMenuState)
+        {
+            <MudNavLink Href="@navItem.Url"
+                        Icon="@navItem.Icon"
+                        IconColor="Color.Inherit"
+                        Match="NavLinkMatch.All">
+            	@navItem.Text
+            </MudNavLink>
+        }
+
+		<MudDivider Class="my-3"/>
+
+		<MudNavLink Href="@Urls.About"
+		            Icon="@Icons.Material.Outlined.Info"
+		            IconColor="Color.Inherit"
+		            Match="NavLinkMatch.All">
+			About
+		</MudNavLink>
+	</MudNavMenu>
+</MudDrawer>

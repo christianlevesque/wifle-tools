@@ -1,0 +1,42 @@
+:focus-visible {
+    outline: none;
+}
+
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+ul {
+    margin-bottom: 3rem;
+}
+
+/* MudBlazor overrides */
+
+.mud-typography-h1 {
+    margin-bottom: 3rem;
+}
+
+.mud-typography-h2,
+.mud-typography-h3,
+.mud-typography-h4,
+.mud-typography-h5,
+.mud-typography-h6 {
+    margin-bottom: 1.5rem;
+}
+
+.mud-typography-body1,
+.mud-typography-body2 {
+    margin-bottom: 1.5rem;
+}
+
+.mud-tabs {
+    margin-bottom:3rem;
+}
+
+.mud-paper.with-hover:hover {
+    background-color: var(--mud-palette-primary-darken);
+}
+
+/*.mud-navmenu.mud-navmenu-default .mud-nav-link.active:not(.mud-nav-link-disabled) {*/
+/*    color: inherit;*/
+/*}*/
