@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MudBlazor.Services;
-using WifleTools.Clients;
 using WifleTools.Extensions;
 using WifleTools.Files;
 using WifleTools.Infrastructure;
@@ -39,7 +38,7 @@ public static class Program
 				o => o.UseWifleDb(fileWriter),
 				ServiceLifetime.Transient)
 			.AddSingleton<LayoutState>()
-			.AddTransient<ICrudService<Client>, ClientService>()
+			.AddTransient(typeof(ICrudService<>), typeof(CrudService<>))
 			.AddTransient(typeof(IStatusLogger<>), typeof(StatusLogger<>))
 			.AddSingleton<IFileWriter>(fileWriter);
 

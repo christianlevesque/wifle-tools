@@ -9,7 +9,7 @@ public class BankingLayout : MainLayout
 	protected override void SetupNav()
 	{
 		LayoutState.Subtext = "Bank accounts";
-		LayoutState.MaxWidth = MaxWidth.Small;
+		LayoutState.MaxWidth = MaxWidth.Large;
 		LayoutState.FixedWidth = false;
 		LayoutState.BackUrl = Urls.Home;
 		LayoutState.Add((Urls.Banking.Index, "Listing", Icons.Material.Filled.CreditCard));

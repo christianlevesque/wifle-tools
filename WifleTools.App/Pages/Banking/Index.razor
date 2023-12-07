@@ -1,8 +1,42 @@
-﻿@layout BankingLayout
+﻿@using WifleTools.Banking
+
+@inherits ActionPageBase<Index, Account>
+
+@layout BankingLayout
 @attribute [Route(Urls.Banking.Index)]
 
-<h3>Banking</h3>
+<Listicle Title="Bank accounts"
+          Items="_accounts">
+	<Renderer>
+		<ListicleItem Title="@context.Name">
+			<HeaderActions>
+				<MudIconButton Icon="@Icons.Material.Filled.Edit"
+				               Href="@($"{Urls.Banking.Index}/{context.Id}")"
+				               Color="Color.Primary"/>
+			</HeaderActions>
+			<BodyContent>
+				<MudText>
+					ABA: @context.AbaNumber
+				</MudText>
+				<MudText>
+					Account: @context.AccountNumber
+				</MudText>
+			</BodyContent>
+		</ListicleItem>
+	</Renderer>
+</Listicle>
 
 @code {
-	
+
+	private List<Account>? _accounts;
+
+	/// <inheritdoc />
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (!firstRender) return;
+
+		_accounts = await Service.Get();
+		StateHasChanged();
+	}
+
 }

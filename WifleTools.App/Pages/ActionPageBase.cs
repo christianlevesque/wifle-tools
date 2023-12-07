@@ -11,8 +11,6 @@ public abstract class ActionPageBase<TPage, TModel> : ComponentBase
 	where TModel : Entity, new()
 {
 	private int _counter;
-	protected string? ErrorMessage;
-	protected string? SuccessMessage;
 
 	protected TModel Model = new ();
 
@@ -63,10 +61,5 @@ public abstract class ActionPageBase<TPage, TModel> : ComponentBase
 		WasSuccessful = result is not null;
 
 		return result;
-	}
-
-	protected void ResetError()
-	{
-		ErrorMessage = null;
 	}
 }

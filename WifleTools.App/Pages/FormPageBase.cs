@@ -18,6 +18,5 @@ public abstract class FormPageBase<TPage, TModel> : ActionPageBase<TPage, TModel
 	protected void Reset()
 	{
 		Model = new TModel();
-		ResetError();
 	}
 }

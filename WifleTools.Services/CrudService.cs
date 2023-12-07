@@ -7,7 +7,7 @@ using WifleTools.Infrastructure.Exceptions;
 
 namespace WifleTools;
 
-public abstract class CrudService<TModel> : ICrudService<TModel>
+public class CrudService<TModel> : ICrudService<TModel>
 	where TModel : Entity
 {
 	protected readonly AppDbContext DbContext;
@@ -15,7 +15,9 @@ public abstract class CrudService<TModel> : ICrudService<TModel>
 
 	protected DbSet<TModel> Set => DbContext.Set<TModel>();
 
-	protected CrudService(AppDbContext dbContext, IStatusLogger<CrudService<TModel>> statusLogger)
+	public CrudService(
+		AppDbContext dbContext,
+		IStatusLogger<CrudService<TModel>> statusLogger)
 	{
 		DbContext = dbContext;
 		StatusLogger = statusLogger;

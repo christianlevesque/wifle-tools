@@ -1,0 +1,68 @@
+﻿@inherits FormPageBase<Upsert, WifleTools.Banking.Account>
+
+@layout BankingLayout
+@attribute [Route(Urls.Banking.Add)]
+@attribute [Route($"{Urls.Banking.Index}/{{id:guid}}")]
+
+<MudContainer MaxWidth="MaxWidth.Small">
+	<StandardForm Model="@Model"
+	              Title="@Title"
+	              SubmitText="@SubmitText"
+	              IsLoading="Loading"
+	              OnSubmit="OnSubmit"
+	              OnReset="Reset"
+	              ShowReset="!IsEditing">
+		<Fields>
+			<MudTextField @bind-Value="@Model.Name"
+			              For="() => Model.Name"
+			              Label="Account name"
+			              Immediate/>
+			<MudTextField @bind-Value="@Model.AbaNumber"
+			              For="() => Model.AbaNumber"
+			              Label="Bank ABA number"
+			              Immediate/>
+			<MudTextField @bind-Value="@Model.AccountNumber"
+			              For="() => Model.AccountNumber"
+			              Label="Bank account number"
+			              Immediate/>
+		</Fields>
+	</StandardForm>
+</MudContainer>
+
+@code {
+	private string Title => IsEditing ? "Update account" : "Add new account";
+	private string SubmitText => IsEditing ? "Update account" : "Add account";
+
+	/// <inheritdoc />
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (!firstRender) return;
+
+		if (IsEditing)
+		{
+			Model = await Service.Get(Id!.Value);
+			StateHasChanged();
+		}
+	}
+
+	/// <inheritdoc />
+	protected override async Task OnSubmit()
+	{
+		if (IsEditing)
+		{
+			await SubmitRequest(() => Service.Edit(Model));
+		}
+		else
+		{
+			await SubmitRequest(() => Service.Add(Model));
+		}
+
+		if (WasSuccessful)
+		{
+			var action = IsEditing ? "updated" : "added";
+			StatusLogger.Success($"Account {Model.Name} {action} successfully! Great job, Wifle!");
+			NavManager.NavigateTo(Urls.Banking.Index);
+		}
+	}
+
+}
