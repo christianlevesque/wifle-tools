@@ -20,7 +20,8 @@
 		<CardActions>
 			@if (!HideSubmit)
 			{
-				<LoadingButton IsLoading="@(Loading || IsLoading)">
+				<LoadingButton IsLoading="@(Loading || IsLoading)"
+				               Class="mr-4">
 					@SubmitText
 				</LoadingButton>
 			}
@@ -28,7 +29,8 @@
 			@if (ShowReset)
 			{
 				<SecondaryButton ButtonType="ButtonType.Reset"
-				                 OnClick="OnReset">
+				                 OnClick="OnReset"
+				                 Class="mr-3">
 					@ResetText
 				</SecondaryButton>
 			}

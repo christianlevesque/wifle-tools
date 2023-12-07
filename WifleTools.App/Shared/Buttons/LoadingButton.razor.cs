@@ -16,4 +16,7 @@ public partial class LoadingButton
 
 	[Parameter]
 	public EventCallback OnClick { get; set; }
+
+	[Parameter]
+	public string? Class { get; set; }
 }
