@@ -1,0 +1,30 @@
+﻿@inherits ActionPageBase<Index, Recipient>
+@attribute [Route(Urls.Recipients.Index)]
+
+<Listicle Title="Recipients"
+          Items="_recipients">
+	<Renderer>
+		<ListicleItem Title="@context.Name">
+			<HeaderActions>
+				<MudIconButton Icon="@Icons.Material.Filled.Edit"
+				               Href="@($"{Urls.Recipients.Index}/{context.Id}")"
+				               Color="Color.Primary"/>
+			</HeaderActions>
+		</ListicleItem>
+	</Renderer>
+</Listicle>
+
+@code {
+
+	private List<Recipient>? _recipients;
+
+	/// <inheritdoc />
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (!firstRender) return;
+
+		_recipients = await Service.Get();
+		StateHasChanged();
+	}
+
+}

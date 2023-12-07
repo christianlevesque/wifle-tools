@@ -27,4 +27,11 @@ public static class Urls
 		public const string Index = Base;
 		public const string Add = $"{Base}/Add";
 	}
+
+	public static class Recipients
+	{
+		private const string Base = "/Recipients";
+		public const string Index = Base;
+		public const string Add = $"{Base}/Add";
+	}
 }

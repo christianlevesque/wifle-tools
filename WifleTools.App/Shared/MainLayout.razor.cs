@@ -15,5 +15,6 @@ public partial class MainLayout
 		LayoutState.Add((Urls.Invoices.Index, "Invoicing", Icons.Material.Filled.AttachMoney));
 		LayoutState.Add((Urls.Clients.Index, "Clients", Icons.Material.Filled.Business));
 		LayoutState.Add((Urls.Banking.Index, "Banking", Icons.Material.Filled.CreditCard));
+		LayoutState.Add((Urls.Recipients.Index, "Recipients", Icons.Material.Filled.Groups));
 	}
 }
