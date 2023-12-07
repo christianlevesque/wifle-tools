@@ -3,7 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WifleTools;
+using WifleTools.Data;
 
 #nullable disable
 
@@ -17,7 +17,7 @@ namespace WifleTools.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
 
-            modelBuilder.Entity("WifleTools.Banking.Account", b =>
+            modelBuilder.Entity("WifleTools.Data.Account", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,7 +40,7 @@ namespace WifleTools.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("WifleTools.Clients.Client", b =>
+            modelBuilder.Entity("WifleTools.Data.Client", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,6 +60,7 @@ namespace WifleTools.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Rate")
@@ -74,7 +75,7 @@ namespace WifleTools.Migrations
                     b.ToTable("Clients");
                 });
 
-            modelBuilder.Entity("WifleTools.Invoicing.Invoice", b =>
+            modelBuilder.Entity("WifleTools.Data.Invoice", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -93,6 +94,8 @@ namespace WifleTools.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("For")
+                        .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("RecipientId")
@@ -109,7 +112,7 @@ namespace WifleTools.Migrations
                     b.ToTable("Invoices");
                 });
 
-            modelBuilder.Entity("WifleTools.Recipients.Recipient", b =>
+            modelBuilder.Entity("WifleTools.Data.Recipient", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -129,6 +132,7 @@ namespace WifleTools.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("State")
@@ -140,21 +144,21 @@ namespace WifleTools.Migrations
                     b.ToTable("Recipients");
                 });
 
-            modelBuilder.Entity("WifleTools.Invoicing.Invoice", b =>
+            modelBuilder.Entity("WifleTools.Data.Invoice", b =>
                 {
-                    b.HasOne("WifleTools.Banking.Account", "Account")
+                    b.HasOne("WifleTools.Data.Account", "Account")
                         .WithMany()
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WifleTools.Clients.Client", "Client")
+                    b.HasOne("WifleTools.Data.Client", "Client")
                         .WithMany()
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WifleTools.Recipients.Recipient", "Recipient")
+                    b.HasOne("WifleTools.Data.Recipient", "Recipient")
                         .WithMany()
                         .HasForeignKey("RecipientId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WifleTools.Clients;
+namespace WifleTools.Data;
 
 public class Client : AddressableEntity
 {

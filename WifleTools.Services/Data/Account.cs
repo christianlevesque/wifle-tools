@@ -1,7 +1,7 @@
 ﻿#nullable disable
 using System.ComponentModel.DataAnnotations;
 
-namespace WifleTools.Banking;
+namespace WifleTools.Data;
 
 public class Account : Entity
 {

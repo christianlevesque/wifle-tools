@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WifleTools;
+using WifleTools.Data;
 
 #nullable disable
 
 namespace WifleTools.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231207205558_AddRecipient")]
-    partial class AddRecipient
+    [Migration("20231207223626_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ namespace WifleTools.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
 
-            modelBuilder.Entity("WifleTools.Banking.Account", b =>
+            modelBuilder.Entity("WifleTools.Data.Account", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -43,7 +43,7 @@ namespace WifleTools.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("WifleTools.Clients.Client", b =>
+            modelBuilder.Entity("WifleTools.Data.Client", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -63,6 +63,7 @@ namespace WifleTools.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Rate")
@@ -77,7 +78,44 @@ namespace WifleTools.Migrations
                     b.ToTable("Clients");
                 });
 
-            modelBuilder.Entity("WifleTools.Recipients.Recipient", b =>
+            modelBuilder.Entity("WifleTools.Data.Invoice", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("For")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("RecipientId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("RecipientId");
+
+                    b.ToTable("Invoices");
+                });
+
+            modelBuilder.Entity("WifleTools.Data.Recipient", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,6 +135,7 @@ namespace WifleTools.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("State")
@@ -106,6 +145,33 @@ namespace WifleTools.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Recipients");
+                });
+
+            modelBuilder.Entity("WifleTools.Data.Invoice", b =>
+                {
+                    b.HasOne("WifleTools.Data.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WifleTools.Data.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WifleTools.Data.Recipient", "Recipient")
+                        .WithMany()
+                        .HasForeignKey("RecipientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Client");
+
+                    b.Navigation("Recipient");
                 });
 #pragma warning restore 612, 618
         }

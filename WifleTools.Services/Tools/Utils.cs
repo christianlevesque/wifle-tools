@@ -1,6 +1,8 @@
-﻿namespace WifleTools.Invoicing;
+﻿using WifleTools.Data;
 
-public static class InvoiceUtils
+namespace WifleTools.Tools;
+
+public static class Utils
 {
 	public static int GetInvoiceAmount(Invoice invoice) => invoice.Amount * invoice.Client.Rate;
 

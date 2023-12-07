@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using WifleTools.Extensions;
 using WifleTools.Files;
 
-namespace WifleTools;
+namespace WifleTools.Data;
 
 public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 {

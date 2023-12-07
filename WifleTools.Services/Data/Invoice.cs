@@ -1,11 +1,8 @@
 ﻿#nullable disable
 using System;
 using System.ComponentModel.DataAnnotations;
-using WifleTools.Banking;
-using WifleTools.Clients;
-using WifleTools.Recipients;
 
-namespace WifleTools.Invoicing;
+namespace WifleTools.Data;
 
 public class Invoice : Entity
 {

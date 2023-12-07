@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MudBlazor.Services;
+using WifleTools.Data;
 using WifleTools.Extensions;
 using WifleTools.Files;
 using WifleTools.Infrastructure;

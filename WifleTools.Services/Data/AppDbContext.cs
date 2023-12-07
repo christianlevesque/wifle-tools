@@ -1,11 +1,7 @@
 ﻿#nullable disable
 using Microsoft.EntityFrameworkCore;
-using WifleTools.Banking;
-using WifleTools.Clients;
-using WifleTools.Invoicing;
-using WifleTools.Recipients;
 
-namespace WifleTools;
+namespace WifleTools.Data;
 
 public class AppDbContext : DbContext
 {
