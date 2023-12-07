@@ -6,19 +6,15 @@ using WifleTools.Infrastructure;
 
 namespace WifleTools.Pages;
 
-public abstract class ActionPageBase<TPage, TService, TModel> : ActionPageBase<TPage, TService>
+public abstract class ActionPageBase<TPage, TModel> : ComponentBase 
 	where TPage : ComponentBase
-	where TModel : new()
-{
-	protected TModel Model = new ();
-}
-
-public abstract class ActionPageBase<TPage, TService> : ComponentBase 
-	where TPage : ComponentBase
+	where TModel : Entity, new()
 {
 	private int _counter;
 	protected string? ErrorMessage;
 	protected string? SuccessMessage;
+
+	protected TModel Model = new ();
 
 	protected bool Loading => _counter > 0;
 
@@ -36,7 +32,7 @@ public abstract class ActionPageBase<TPage, TService> : ComponentBase
 	protected NavigationManager NavManager { get; set; } = default!;
 
 	[Inject]
-	protected TService Service { get; set; } = default!;
+	protected ICrudService<TModel> Service { get; set; } = default!;
 
 	protected async Task SubmitRequest(Func<Task<bool>> submitFunc)
 	{

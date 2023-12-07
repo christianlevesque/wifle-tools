@@ -1,8 +1,39 @@
-﻿@layout ClientsLayout
+﻿@using WifleTools.Clients
+
+@inherits ActionPageBase<Index, Client>
+
+@layout ClientsLayout
 @attribute [Route(Urls.Clients.Index)]
 
-<h3>Clients</h3>
+<Listicle Title="Clients"
+          Items="_clients">
+	<Renderer>
+		<ListicleItem Title="@context.Name">
+			<HeaderActions>
+				<MudIconButton Icon="@Icons.Material.Filled.Edit"
+				               Href="@($"{Urls.Clients.Index}/{context.Id}")"
+				               Color="Color.Primary"/>
+			</HeaderActions>
+			<BodyContent>
+				<MudText>
+					@($"{((double)context.Rate / 100):C}")/word
+				</MudText>
+			</BodyContent>
+		</ListicleItem>
+	</Renderer>
+</Listicle>
 
 @code {
-	
+
+	private List<Client>? _clients;
+
+	/// <inheritdoc />
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (!firstRender) return;
+
+		_clients = await Service.Get();
+		StateHasChanged();
+	}
+
 }

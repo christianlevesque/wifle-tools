@@ -1,0 +1,29 @@
+﻿<MudCard Outlined>
+	<MudCardHeader>
+		<CardHeaderContent>
+			<MudText Typo="Typo.h6"
+			         Class="mb-0">
+				@Title
+			</MudText>
+		</CardHeaderContent>
+		<CardHeaderActions>
+			@HeaderActions
+		</CardHeaderActions>
+	</MudCardHeader>
+	<MudCardContent>
+		@BodyContent
+	</MudCardContent>
+</MudCard>
+
+@code {
+
+	[Parameter]
+	public string Title { get; set; } = default!;
+
+	[Parameter]
+	public RenderFragment BodyContent { get; set; } = default!;
+
+	[Parameter]
+	public RenderFragment? HeaderActions { get; set; }
+
+}

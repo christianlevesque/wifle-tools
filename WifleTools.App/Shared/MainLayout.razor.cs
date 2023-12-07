@@ -8,12 +8,12 @@ public partial class MainLayout
 	/// <inheritdoc />
 	protected override void SetupNav()
 	{
-		NavMenuState.MaxWidth = MaxWidth.False;
-		NavMenuState.FixedWidth = true;
-		NavMenuState.Subtext = "Quick launch";
-		NavMenuState.Add((Urls.Home, "Home", Icons.Material.Filled.Home));
-		NavMenuState.Add((Urls.Invoices.Index, "Invoicing", Icons.Material.Filled.AttachMoney));
-		NavMenuState.Add((Urls.Clients.Index, "Clients", Icons.Material.Filled.Business));
-		NavMenuState.Add((Urls.Banking.Index, "Banking", Icons.Material.Filled.CreditCard));
+		LayoutState.MaxWidth = MaxWidth.False;
+		LayoutState.FixedWidth = true;
+		LayoutState.Subtext = "Quick launch";
+		LayoutState.Add((Urls.Home, "Home", Icons.Material.Filled.Home));
+		LayoutState.Add((Urls.Invoices.Index, "Invoicing", Icons.Material.Filled.AttachMoney));
+		LayoutState.Add((Urls.Clients.Index, "Clients", Icons.Material.Filled.Business));
+		LayoutState.Add((Urls.Banking.Index, "Banking", Icons.Material.Filled.CreditCard));
 	}
 }

@@ -1,0 +1,51 @@
+﻿@typeparam TItem
+
+<MudText Typo="TitleTypo">@Title</MudText>
+
+@if (Items is null)
+{
+	<Spinner/>
+	return;
+}
+
+@if (Items.Count == 0)
+{
+	@if (NoContent is not null)
+	{
+		@NoContent
+	}
+	else
+	{
+		<MudText>There are no @Title to display</MudText>
+	}
+
+	return;
+}
+
+<MudGrid>
+	@foreach (var item in Items)
+	{
+		<MudItem xs="3">
+			@Renderer.Invoke(item)
+		</MudItem>
+	}
+</MudGrid>
+
+@code {
+
+	[Parameter]
+	public string Title { get; set; } = default!;
+
+	[Parameter]
+	public Typo TitleTypo { get; set; } = Typo.h1;
+
+	[Parameter]
+	public List<TItem>? Items { get; set; }
+
+	[Parameter]
+    public RenderFragment? NoContent { get; set; }
+
+	[Parameter]
+	public RenderFragment<TItem> Renderer { get; set; } = default!;
+
+}

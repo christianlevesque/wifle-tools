@@ -1,0 +1,81 @@
+﻿@inherits FormPageBase<Upsert, WifleTools.Clients.Client>
+
+@layout ClientsLayout
+@attribute [Route(Urls.Clients.Add)]
+@attribute [Route($"{Urls.Clients.Index}/{{id:guid}}")]
+
+<MudContainer MaxWidth="MaxWidth.Small">
+	<StandardForm Model="@Model"
+	              Title="@Title"
+	              SubmitText="@SubmitText"
+	              IsLoading="Loading"
+	              OnSubmit="OnSubmit"
+	              OnReset="Reset"
+	              ShowReset="!IsEditing">
+		<Fields>
+			<MudTextField @bind-Value="@Model.Name"
+			              For="() => Model.Name"
+			              Label="Client name"
+			              Immediate/>
+			<MudTextField @bind-Value="@Model.Address1"
+			              For="() => Model.Address1"
+			              Label="Address line 1"
+			              Immediate/>
+			<MudTextField @bind-Value="@Model.Address2"
+			              For="() => Model.Address2"
+			              Label="Address line 2"
+			              Immediate/>
+			<MudTextField @bind-Value="@Model.City"
+			              For="() => Model.City"
+			              Label="City"
+			              Immediate/>
+			<MudTextField @bind-Value="@Model.State"
+			              For="() => Model.State"
+			              Label="State"
+			              Immediate/>
+
+			<MudTextField @bind-Value="@Model.Rate"
+			              For="() => Model.Rate"
+			              Label="Pay rate (per word)"
+			              Immediate/>
+		</Fields>
+	</StandardForm>
+</MudContainer>
+
+@code {
+	private string Title => IsEditing ? $"Update {Model.Name}" : "Add new client";
+	private string SubmitText => IsEditing ? $"Update {Model.Name}" : "Add client";
+
+	/// <inheritdoc />
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (!firstRender) return;
+
+		if (IsEditing)
+		{
+			Model = await Service.Get(Id!.Value);
+			StateHasChanged();
+		}
+	}
+
+	/// <inheritdoc />
+	protected override async Task OnSubmit()
+	{
+		if (IsEditing)
+		{
+			await SubmitRequest(() => Service.Edit(Model));
+		}
+		else
+		{
+			await SubmitRequest(() => Service.Add(Model));
+		}
+
+		if (WasSuccessful)
+		{
+			var action = IsEditing ? "updated" : "added";
+			StatusLogger.Success($"Client {Model.Name} {action} successfully! Great job, Wifle!");
+			NavManager.NavigateTo(Urls.Clients.Index);
+		}
+	}
+
+}

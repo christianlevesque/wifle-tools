@@ -4,7 +4,7 @@ using MudBlazor;
 
 namespace WifleTools.State;
 
-public class NavMenuState : StateManagerBase, IList<(string Url, string Text, string Icon)>
+public class LayoutState : StateManagerBase, IList<(string Url, string Text, string Icon)>
 {
 	private readonly List<(string Url, string Text, string Icon)> _navLinks = new();
 	private string? _subtext;
@@ -89,7 +89,7 @@ public class NavMenuState : StateManagerBase, IList<(string Url, string Text, st
 	}
 
 	/// <summary>
-	/// Completely resets the <see cref="NavMenuState"/>
+	/// Completely resets the <see cref="LayoutState"/>
 	/// </summary>
 	/// <remarks>
 	/// This method call not only clears the navigation links in the backing <see cref="List"/>, but also resets the <see cref="Subtext"/> and <see cref="BackUrl"/> properties to null.

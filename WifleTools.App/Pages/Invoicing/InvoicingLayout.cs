@@ -8,11 +8,11 @@ public class InvoicingLayout : MainLayout
 {
 	protected override void SetupNav()
 	{
-		NavMenuState.Subtext = "Invoicing";
-		NavMenuState.MaxWidth = MaxWidth.Small;
-		NavMenuState.FixedWidth = false;
-		NavMenuState.BackUrl = Urls.Home;
-		NavMenuState.Add((Urls.Invoices.Index, "Listing", Icons.Material.Filled.Folder));
-		NavMenuState.Add((Urls.Invoices.Add, "Create invoice", Icons.Material.Filled.AttachMoney));
+		LayoutState.Subtext = "Invoicing";
+		LayoutState.MaxWidth = MaxWidth.Small;
+		LayoutState.FixedWidth = false;
+		LayoutState.BackUrl = Urls.Home;
+		LayoutState.Add((Urls.Invoices.Index, "Listing", Icons.Material.Filled.Folder));
+		LayoutState.Add((Urls.Invoices.Add, "Create invoice", Icons.Material.Filled.AttachMoney));
 	}
 }

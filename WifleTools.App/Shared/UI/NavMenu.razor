@@ -1,5 +1,5 @@
 ﻿@using System
-@inject State.NavMenuState NavMenuState
+@inject State.LayoutState LayoutState
 
 <MudDrawer Elevation="0"
            Variant="DrawerVariant.Persistent"
@@ -10,13 +10,13 @@
 		</MudText>
 
 		<MudText Typo="Typo.h6">
-			@NavMenuState.Subtext
+			@LayoutState.Subtext
 		</MudText>
 	</MudDrawerHeader>
 	<MudNavMenu>
-		@if (!string.IsNullOrEmpty(NavMenuState.BackUrl))
+		@if (!string.IsNullOrEmpty(LayoutState.BackUrl))
         {
-            <MudNavLink Href="@NavMenuState.BackUrl"
+            <MudNavLink Href="@LayoutState.BackUrl"
                         Icon="@Icons.Material.Filled.ArrowBack"
                         IconColor="Color.Inherit"
                         Match="NavLinkMatch.All">
@@ -24,7 +24,7 @@
             </MudNavLink>
         }
 
-        @foreach (var navItem in NavMenuState)
+        @foreach (var navItem in LayoutState)
         {
             <MudNavLink Href="@navItem.Url"
                         Icon="@navItem.Icon"

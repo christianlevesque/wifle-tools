@@ -38,7 +38,7 @@ public static class Program
 			.AddDbContext<AppDbContext>(
 				o => o.UseWifleDb(fileWriter),
 				ServiceLifetime.Transient)
-			.AddSingleton<NavMenuState>()
+			.AddSingleton<LayoutState>()
 			.AddTransient<ICrudService<Client>, ClientService>()
 			.AddTransient(typeof(IStatusLogger<>), typeof(StatusLogger<>))
 			.AddSingleton<IFileWriter>(fileWriter);

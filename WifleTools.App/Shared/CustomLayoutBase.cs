@@ -7,7 +7,7 @@ namespace WifleTools.Shared;
 public abstract class CustomLayoutBase : LayoutComponentBase
 {
 	[Inject]
-	protected NavMenuState NavMenuState { get; set; } = default!;
+	protected LayoutState LayoutState { get; set; } = default!;
 
 	[Inject]
 	private ILogger<CustomLayoutBase> Logger { get; set; } = default!;
@@ -17,10 +17,10 @@ public abstract class CustomLayoutBase : LayoutComponentBase
 	{
 		Logger.LogInformation("Base layout initialized");
 		base.OnInitialized();
-		NavMenuState.Freeze();
-		NavMenuState.Reset();
+		LayoutState.Freeze();
+		LayoutState.Reset();
 		SetupNav();
-		NavMenuState.Unfreeze();
+		LayoutState.Unfreeze();
 	}
 
 	/// <summary>
