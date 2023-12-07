@@ -6,6 +6,7 @@ public abstract class AddressableEntity : Entity
 {
 	[Required]
 	[MinLength(5)]
+	[MaxLength(100)]
 	public string Name { get; set; } = default!;
 
 	[MaxLength(100)]

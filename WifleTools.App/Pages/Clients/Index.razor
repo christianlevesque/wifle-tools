@@ -1,4 +1,5 @@
-﻿@inherits ActionPageBase<Index, Client>
+﻿@using WifleTools.Invoicing
+@inherits ActionPageBase<Index, Client>
 @attribute [Route(Urls.Clients.Index)]
 
 <Listicle Title="Clients"
@@ -12,7 +13,7 @@
 			</HeaderActions>
 			<BodyContent>
 				<MudText>
-					@($"{((double)context.Rate / 100):C}")/word
+					@context.Rate.ToCurrencyString()/word
 				</MudText>
 			</BodyContent>
 		</ListicleItem>

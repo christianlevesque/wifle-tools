@@ -1,8 +1,57 @@
-﻿@layout InvoicingLayout
+﻿@using Microsoft.EntityFrameworkCore
+@inherits ActionPageBase<Index, Invoice>
 @attribute [Route(Urls.Invoices.Index)]
 
-<h3>Invoices</h3>
+<Listicle Title="Invoices"
+          Items="_invoices">
+	<Renderer>
+		<ListicleItem Title="@context.For">
+			<HeaderActions>
+				<MudIconButton Icon="@Icons.Material.Filled.Edit"
+				               Href="@($"{Urls.Invoices.Index}/{context.Id}")"
+				               Color="Color.Primary"/>
+			</HeaderActions>
+			<BodyContent>
+				<MudText>
+					@($"{context.Client.Name} ({context.Date:d})")
+				</MudText>
+				<MudText>
+					Words: @context.Amount
+				</MudText>
+				<MudText>
+					Rate: @context.Client.Rate.ToCurrencyString()
+				</MudText>
+				<MudText>
+					Invoice total: @InvoiceUtils.GetInvoiceAmount(context).ToCurrencyString()
+				</MudText>
+			</BodyContent>
+		</ListicleItem>
+	</Renderer>
+</Listicle>
 
 @code {
-	
+
+	private List<Invoice>? _invoices;
+
+	/// <inheritdoc />
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (!firstRender) return;
+
+		await SubmitRequest(
+			async () =>
+			{
+				_invoices = await Service.Get(
+					set =>
+					{
+						return set.Include(i => i.Recipient)
+							.Include(i => i.Client)
+							.Include(i => i.Account);
+					});
+				StateHasChanged();
+
+				return true;
+			});
+	}
+
 }

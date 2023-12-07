@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WifleTools.Infrastructure;
@@ -24,16 +25,20 @@ public class CrudService<TModel> : ICrudService<TModel>
 	}
 
 	/// <inheritdoc />
-	public async Task<TModel> Get(Guid id)
+	public async Task<TModel> Get(
+		Guid id,
+		Func<IQueryable<TModel>, IQueryable<TModel>>? processFunc = null)
 	{
-		return await Set.FindAsync(id) ??
-			throw new AppException($"Couldn't find an entity with ID {id}. Please contact Hubber!");
+		var processedSet = processFunc?.Invoke(Set) ?? Set;
+		return await processedSet.FirstOrDefaultAsync(e => e.Id == id) ??
+			throw new AppException($"Couldn't find a(n) {typeof(TModel).Name} with ID {id}. Please contact Hubber!");
 	}
 
 	/// <inheritdoc />
-	public async Task<List<TModel>> Get()
+	public async Task<List<TModel>> Get(Func<IQueryable<TModel>, IQueryable<TModel>>? processFunc = null)
 	{
-		return await Set.ToListAsync();
+		var processedSet = processFunc?.Invoke(Set) ?? Set;
+		return await processedSet.ToListAsync();
 	}
 
 	/// <inheritdoc />
@@ -93,14 +98,18 @@ public interface ICrudService<TModel>
 	/// Gets an entity by primary key
 	/// </summary>
 	/// <param name="id">The primary key of the entity to retrieve</param>
+	/// <param name="processFunc">A <c>Func&lt;IQueryable&lt;TModel&gt;, IQueryable&lt;TModel&gt;&gt;</c> which can be used to provide additional processing on the query set before returning</param>
 	/// <returns>the requested <c>TModel</c></returns>
-	Task<TModel> Get(Guid id);
+	Task<TModel> Get(
+		Guid id,
+		Func<IQueryable<TModel>, IQueryable<TModel>>? processFunc = null);
 
 	/// <summary>
 	/// Gets a list of all entities in the backend
 	/// </summary>
+	/// <param name="processFunc">A <c>Func&lt;IQueryable&lt;TModel&gt;, IQueryable&lt;TModel&gt;&gt;</c> which can be used to provide additional processing on the query set before returning</param>
 	/// <returns>a list of all entities in the database</returns>
-	Task<List<TModel>> Get();
+	Task<List<TModel>> Get(Func<IQueryable<TModel>, IQueryable<TModel>>? processFunc = null);
 
 	/// <summary>
 	/// Creates a new entry in the backend

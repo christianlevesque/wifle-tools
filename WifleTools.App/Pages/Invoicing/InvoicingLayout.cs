@@ -9,7 +9,7 @@ public class InvoicingLayout : MainLayout
 	protected override void SetupNav()
 	{
 		LayoutState.Subtext = "Invoicing";
-		LayoutState.MaxWidth = MaxWidth.Small;
+		LayoutState.MaxWidth = MaxWidth.Large;
 		LayoutState.FixedWidth = false;
 		LayoutState.BackUrl = Urls.Home;
 		LayoutState.Add((Urls.Invoices.Index, "Listing", Icons.Material.Filled.Folder));

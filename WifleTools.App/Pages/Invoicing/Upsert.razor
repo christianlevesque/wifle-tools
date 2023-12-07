@@ -1,0 +1,160 @@
+﻿@using WifleTools.Clients
+@using WifleTools.Banking
+@using WifleTools.Recipients
+@inherits FormPageBase<Upsert, Invoice>
+@attribute [Route(Urls.Invoices.Add)]
+@attribute [Route($"{Urls.Invoices.Index}/{{id:guid}}")]
+
+@if (_clients is null || _recipients is null || _accounts is null)
+{
+	<Spinner/>
+	return;
+}
+
+<MudContainer MaxWidth="MaxWidth.Small">
+	<StandardForm Model="@Model"
+	              Title="@Title"
+	              SubmitText="@SubmitText"
+	              IsLoading="Loading"
+	              OnSubmit="OnSubmit"
+	              OnReset="Reset"
+	              ShowReset="!IsEditing">
+		<Fields>
+			<MudTextField @bind-Value="@Model.For"
+			              For="() => Model.For"
+			              Label="Story title"
+			              Immediate/>
+			<MudTextField @bind-Value="@Model.Amount"
+			              For="() => Model.Amount"
+			              Label="Word count"
+			              Immediate/>
+
+			<MudSelect @bind-Value="@Model.ClientId"
+			           Label="Client"
+			           AnchorOrigin="Origin.BottomLeft"
+			           TransformOrigin="Origin.TopLeft"
+			           Required>
+				<MudSelectItem Value="@Guid.Empty"
+				               Disabled>
+					Select the client to invoice
+				</MudSelectItem>
+
+				@foreach (var client in _clients)
+				{
+					<MudSelectItem Value="@client.Id" >@client.Name</MudSelectItem>
+				}
+			</MudSelect>
+
+			<MudSelect @bind-Value="@Model.RecipientId"
+			           Label="Recipient"
+			           AnchorOrigin="Origin.BottomLeft"
+			           TransformOrigin="Origin.TopLeft"
+			           Required>
+				<MudSelectItem Value="@Guid.Empty"
+				               Disabled>
+					Select the entity to receive payment
+				</MudSelectItem>
+
+				@foreach (var recipient in _recipients)
+				{
+					<MudSelectItem Value="@recipient.Id">@recipient.Name</MudSelectItem>
+				}
+			</MudSelect>
+
+			<MudSelect @bind-Value="@Model.AccountId"
+			           Label="Account"
+			           AnchorOrigin="Origin.BottomLeft"
+			           TransformOrigin="Origin.TopLeft"
+			           Required>
+				<MudSelectItem Value="@Guid.Empty"
+				               Disabled>
+					Select the account to send payment to
+				</MudSelectItem>
+
+				@foreach (var account in _accounts)
+				{
+					<MudSelectItem Value="@account.Id">@account.Name</MudSelectItem>
+				}
+			</MudSelect>
+		</Fields>
+	</StandardForm>
+</MudContainer>
+
+@code {
+
+	[Inject]
+	private ICrudService<Client> ClientService { get; set; } = default!;
+
+	[Inject]
+	private ICrudService<Account> AccountService { get; set; } = default!;
+
+	[Inject]
+	private ICrudService<Recipient> RecipientService { get; set; } = default!;
+
+	private string Title => IsEditing ? "Update invoice" : "Add new invoice";
+	private string SubmitText => IsEditing ? "Update account" : "Add invoice";
+
+	private List<Client>? _clients;
+	private List<Account>? _accounts;
+	private List<Recipient>? _recipients;
+
+	/// <inheritdoc />
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (!firstRender) return;
+
+		if (IsEditing)
+		{
+			Model = await Service.Get(Id!.Value);
+		}
+
+		_clients = await ClientService.Get();
+		_accounts = await AccountService.Get();
+		_recipients = await RecipientService.Get();
+
+		StateHasChanged();
+	}
+
+	/// <inheritdoc />
+	protected override async Task OnSubmit()
+	{
+		var hasErrored = false;
+		if (Model.ClientId == Guid.Empty)
+		{
+			StatusLogger.Warning("You must select a client! Silly Wifle!");
+			hasErrored = true;
+		}
+
+		if (Model.RecipientId == Guid.Empty)
+		{
+			StatusLogger.Warning("You must select a recipient! Silly Wifle!");
+			hasErrored = true;
+		}
+
+		if (Model.AccountId == Guid.Empty)
+		{
+			StatusLogger.Warning("You must select an account! Silly Wifle!");
+			hasErrored = true;
+		}
+
+		if (hasErrored) return;
+
+		if (IsEditing)
+		{
+			await SubmitRequest(() => Service.Edit(Model));
+		}
+		else
+		{
+			Model.Date = DateOnly.FromDateTime(DateTime.Now);
+			await SubmitRequest(() => Service.Add(Model));
+		}
+
+		if (WasSuccessful)
+		{
+			var action = IsEditing ? "updated" : "added";
+			StatusLogger.Success($"Invoice {action} successfully! Great job, Wifle!");
+			NavManager.NavigateTo(Urls.Invoices.Index);
+		}
+	}
+
+}

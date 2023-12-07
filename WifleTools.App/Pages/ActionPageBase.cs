@@ -40,7 +40,14 @@ public abstract class ActionPageBase<TPage, TModel> : ComponentBase
 
 		// Do the work
 		_counter++;
-		WasSuccessful = await submitFunc();
+		try
+		{
+			WasSuccessful = await submitFunc();
+		}
+		catch (Exception e)
+		{
+			StatusLogger.Error(e);
+		}
 		--_counter;
 
 		Logger!.LogInformation("Service request submitted");
@@ -53,7 +60,15 @@ public abstract class ActionPageBase<TPage, TModel> : ComponentBase
 		Logger!.LogInformation("Submitting service request");
 
 		++_counter;
-		var result = await submitFunc();
+		TReturn result = default!;
+		try
+		{
+			result = await submitFunc();
+		}
+		catch (Exception e)
+		{
+			StatusLogger.Error(e);
+		}
 		--_counter;
 
 		Logger!.LogInformation("Service request submitted");
