@@ -29,6 +29,11 @@ ul {
     margin-bottom: 1.5rem;
 }
 
+.mud-input-adornment .mud-typography-body1,
+.mud-input-adornment .mud-typography-body2 {
+    margin-bottom: 0;
+}
+
 .mud-tabs {
     margin-bottom:3rem;
 }
