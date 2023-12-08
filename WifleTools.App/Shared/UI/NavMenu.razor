@@ -4,43 +4,49 @@
 <MudDrawer Elevation="0"
            Variant="DrawerVariant.Persistent"
            Open>
-	<MudDrawerHeader Class="flex-column">
-		<MudText Typo="Typo.h4">
-			Wifle Tools
-		</MudText>
+	<div class="flex-grow-1">
+		<MudDrawerHeader Class="flex-column">
+			<MudText Typo="Typo.h4">
+				Wifle Tools
+			</MudText>
 
-		<MudText Typo="Typo.h6">
-			@LayoutState.Subtext
-		</MudText>
-	</MudDrawerHeader>
-	<MudNavMenu>
-		@if (!string.IsNullOrEmpty(LayoutState.BackUrl))
-        {
-            <MudNavLink Href="@LayoutState.BackUrl"
-                        Icon="@Icons.Material.Filled.ArrowBack"
-                        IconColor="Color.Inherit"
-                        Match="NavLinkMatch.All">
-            	Go back
-            </MudNavLink>
-        }
+			<MudText Typo="Typo.h6">
+				@LayoutState.Subtext
+			</MudText>
+		</MudDrawerHeader>
+		<MudNavMenu>
+			@if (!string.IsNullOrEmpty(LayoutState.BackUrl))
+			{
+				<MudNavLink Href="@LayoutState.BackUrl"
+				            Icon="@Icons.Material.Filled.ArrowBack"
+				            IconColor="Color.Inherit"
+				            Match="NavLinkMatch.All">
+					Go back
+				</MudNavLink>
+			}
 
-        @foreach (var navItem in LayoutState)
-        {
-            <MudNavLink Href="@navItem.Url"
-                        Icon="@navItem.Icon"
-                        IconColor="Color.Inherit"
-                        Match="NavLinkMatch.All">
-            	@navItem.Text
-            </MudNavLink>
-        }
+			@foreach (var navItem in LayoutState)
+			{
+				<MudNavLink Href="@navItem.Url"
+				            Icon="@navItem.Icon"
+				            IconColor="Color.Inherit"
+				            Match="NavLinkMatch.All">
+					@navItem.Text
+				</MudNavLink>
+			}
 
-		<MudDivider Class="my-3"/>
+			<MudDivider Class="my-3"/>
 
-		<MudNavLink Href="@Urls.About"
-		            Icon="@Icons.Material.Outlined.Info"
-		            IconColor="Color.Inherit"
-		            Match="NavLinkMatch.All">
-			About
-		</MudNavLink>
-	</MudNavMenu>
+			<MudNavLink Href="@Urls.About"
+			            Icon="@Icons.Material.Outlined.Info"
+			            IconColor="Color.Inherit"
+			            Match="NavLinkMatch.All">
+				About
+			</MudNavLink>
+		</MudNavMenu>
+	</div>
+
+	<div class="px-4">
+		<MudText>Made for a Wifle with love, by Hubber &#129505;</MudText>
+	</div>
 </MudDrawer>
