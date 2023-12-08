@@ -2,8 +2,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using ElectronNET.API;
-using ElectronNET.API.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -30,8 +28,6 @@ public static class Program
 		Initialize(fileWriter);
 
 		var builder = WebApplication.CreateBuilder(args);
-
-		builder.WebHost.UseElectron(args);
 
 		// Add services to the container.
 		builder.Services.AddRazorPages();
@@ -65,26 +61,7 @@ public static class Program
 		app.MapBlazorHub();
 		app.MapFallbackToPage("/_Host");
 
-		if (HybridSupport.IsElectronActive)
-		{
-			CreateElectronWindow();
-		}
-
 		await app.RunAsync();
-	}
-
-	private static async void CreateElectronWindow()
-	{
-		var screen = await Electron.Screen.GetPrimaryDisplayAsync();
-		var options = new BrowserWindowOptions
-		{
-			Title = "Wifle Tools",
-			Height = screen.Size.Height,
-			Width = screen.Size.Width
-		};
-	
-		var window = await Electron.WindowManager.CreateWindowAsync(options);
-		window.OnClosed += () => Electron.App.Quit();
 	}
 
 	private static void Initialize(IFileWriter fileWriter)
