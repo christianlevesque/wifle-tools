@@ -89,7 +89,7 @@
 	private ICrudService<Recipient> RecipientService { get; set; } = default!;
 
 	private string Title => IsEditing ? "Update invoice" : "Add new invoice";
-	private string SubmitText => IsEditing ? "Update account" : "Add invoice";
+	private string SubmitText => IsEditing ? "Update invoice" : "Add invoice";
 
 	private List<Client>? _clients;
 	private List<Account>? _accounts;
@@ -142,7 +142,8 @@
 		}
 		else
 		{
-			Model.Date = DateOnly.FromDateTime(DateTime.Now);
+			Model.CreatedAt = DateTime.Now;
+			Model.Date = DateOnly.FromDateTime(Model.CreatedAt);
 			await SubmitRequest(() => Service.Add(Model));
 		}
 

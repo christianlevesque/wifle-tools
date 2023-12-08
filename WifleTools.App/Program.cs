@@ -10,10 +10,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MudBlazor.Services;
+using QuestPDF.Infrastructure;
 using WifleTools.Data;
 using WifleTools.Extensions;
 using WifleTools.Files;
 using WifleTools.Infrastructure;
+using WifleTools.Pdf;
 using WifleTools.State;
 
 namespace WifleTools;
@@ -22,6 +24,8 @@ public static class Program
 {
 	public static async Task Main(string[] args)
 	{
+		QuestPDF.Settings.License = LicenseType.Community;
+
 		var fileWriter = new FileWriter();
 		Initialize(fileWriter);
 
@@ -40,6 +44,7 @@ public static class Program
 				ServiceLifetime.Transient)
 			.AddSingleton<LayoutState>()
 			.AddTransient(typeof(ICrudService<>), typeof(CrudService<>))
+			.AddTransient<InvoicePdfGenerator>()
 			.AddTransient(typeof(IStatusLogger<>), typeof(StatusLogger<>))
 			.AddSingleton<IFileWriter>(fileWriter);
 

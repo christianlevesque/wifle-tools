@@ -1,4 +1,5 @@
 ﻿@using Microsoft.EntityFrameworkCore
+@using WifleTools.Pdf
 @inherits ActionPageBase<Index, Invoice>
 @attribute [Route(Urls.Invoices.Index)]
 
@@ -7,6 +8,9 @@
 	<Renderer>
 		<ListicleItem Title="@context.For">
 			<HeaderActions>
+				<MudIconButton Icon="@Icons.Material.Filled.Send"
+				               Color="Color.Secondary"
+				               OnClick="@(async () => await GeneratePdf(context))"/>
 				<MudIconButton Icon="@Icons.Material.Filled.Edit"
 				               Href="@($"{Urls.Invoices.Index}/{context.Id}")"
 				               Color="Color.Primary"/>
@@ -31,6 +35,9 @@
 
 @code {
 
+	[Inject]
+	private InvoicePdfGenerator InvoiceGenerator { get; set; } = default!;
+
 	private List<Invoice>? _invoices;
 
 	/// <inheritdoc />
@@ -53,5 +60,8 @@
 				return true;
 			});
 	}
+
+	private Task GeneratePdf(Invoice invoice)
+		=> InvoiceGenerator.Generate(invoice);
 
 }
