@@ -10,7 +10,7 @@
 			<HeaderActions>
 				<MudIconButton Icon="@Icons.Material.Filled.Send"
 				               Color="Color.Secondary"
-				               OnClick="@(async () => await GeneratePdf(context))"/>
+				               OnClick="@(async () => await DownloadPdf(context))"/>
 				<MudIconButton Icon="@Icons.Material.Filled.Edit"
 				               Href="@($"{Urls.Invoices.Index}/{context.Id}")"
 				               Color="Color.Primary"/>
@@ -38,6 +38,9 @@
 	[Inject]
 	private InvoicePdfGenerator InvoiceGenerator { get; set; } = default!;
 
+	[Inject]
+	private IJSRuntime Interop { get; set; } = default!;
+
 	private List<Invoice>? _invoices;
 
 	/// <inheritdoc />
@@ -61,7 +64,15 @@
 			});
 	}
 
-	private Task GeneratePdf(Invoice invoice)
-		=> InvoiceGenerator.Generate(invoice);
+	private async Task DownloadPdf(Invoice invoice)
+	{
+		var file = await InvoiceGenerator.Generate(invoice);
+		if (file.File is not null && !string.IsNullOrEmpty(file.Filename))
+		{
+			file.File.Position = 0;
+			using var stream = new DotNetStreamReference(stream: file.File);
+			await Interop.InvokeVoidAsync("downloadFileFromStream", file.Filename, stream);
+		}
+	}
 
 }

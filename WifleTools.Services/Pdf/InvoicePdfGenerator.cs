@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using QuestPDF.Fluent;
 using WifleTools.Data;
 using WifleTools.Infrastructure;
+using WifleTools.Tools;
 
 namespace WifleTools.Pdf;
 
@@ -22,8 +23,9 @@ public class InvoicePdfGenerator
 		_statusLogger = statusLogger;
 	}
 
-	public async Task Generate(Invoice invoice)
+	public async Task<FileResult> Generate(Invoice invoice)
 	{
+		var result = new FileResult();
 		try
 		{
 			var existing = await _dbContext.Invoices
@@ -34,10 +36,10 @@ public class InvoicePdfGenerator
 			invoice.InvoiceNumber = $"{invoice.Date.Year}{invoice.Date.Month}{invoice.Date.Day}{number}";
 
 			var pdf = new InvoiceDocument(invoice);
-			var filename = $"{invoice.Client.Name}_{invoice.InvoiceNumber}.pdf";
-			var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-			var filePath = Path.Combine(desktopPath, filename);
-			pdf.GeneratePdf(filePath);
+			result.File = new MemoryStream();
+			pdf.GeneratePdf(result.File);
+
+			result.Filename = $"{invoice.Client.Name}_{invoice.InvoiceNumber}.pdf";
 
 			_statusLogger.Success($"Invoice for {invoice.Client.Name} was exported to your desktop!");
 			_statusLogger.Success("Look at Wifle EARN! Look at her EARN!");
@@ -46,5 +48,7 @@ public class InvoicePdfGenerator
 		{
 			_statusLogger.Error(e);
 		}
+
+		return result;
 	}
 }

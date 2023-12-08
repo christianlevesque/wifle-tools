@@ -9,7 +9,7 @@ public class FileWriter : IFileWriter
 	private string _baseDirectory = string.Empty;
 
 	/// <inheritdoc />
-	public string BaseAppFolderName => "WifleTools";
+	public string BaseAppFolderName => "Storage";
 
 	/// <inheritdoc />
 	public string BaseDirectory
@@ -21,8 +21,7 @@ public class FileWriter : IFileWriter
 				return _baseDirectory;
 			}
 
-			var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-			_baseDirectory = Path.Combine(path, BaseAppFolderName);
+			_baseDirectory = Path.Combine("..", BaseAppFolderName);
 
 			return _baseDirectory;
 		}
