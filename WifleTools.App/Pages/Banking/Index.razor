@@ -31,8 +31,13 @@
 	{
 		if (!firstRender) return;
 
-		_accounts = await Service.Get();
-		StateHasChanged();
+		await SubmitRequest(
+			async () =>
+			{
+				_accounts = await Service.Get();
+				StateHasChanged();
+				return true;
+			});
 	}
 
 }
