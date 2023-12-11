@@ -1,5 +1,5 @@
-﻿using AvaloniaDi.Routing;
-using AvaloniaDi.Views;
+﻿using Percival.Routing;
+using Percival.Views;
 
 namespace WifleTools.Views;
 

@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
-using AvaloniaDi.Routing;
-using AvaloniaDi.Views;
+using Percival.Routing;
+using Percival.Views;
 using WifleTools.Utils;
 using CommunityToolkit.Mvvm.Input;
 
@@ -43,7 +43,7 @@ public partial class CustomMainWindowViewModel : MainWindowViewModel
 
 	[RelayCommand]
 	private void OpenGitHub()
-		=> OpenBrowser("https://github.com/AvaloniaUI/Avalonia/blob/938b5ed18f6780c8a16382dca2d034f67d271eed/src/Avalonia.Dialogs/AboutAvaloniaDialog.xaml.cs"); // TODO: replace with actual URL
+		=> OpenBrowser("https://github.com/AvaloniaUI/Avalonia/blob/938b5ed18f6780c8a16382dca2d034f67d271eed/src/Avalonia.Dialogs/AboutPercivalalog.xaml.cs"); // TODO: replace with actual URL
 
 	private void OpenBrowser(string url)
 	{

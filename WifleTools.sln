@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WifleTools.Services", "Wifl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WifleTools.Desktop", "WifleTools.Desktop\WifleTools.Desktop.csproj", "{D51CCAA4-53DB-4ACA-BD63-7E2C4292BC00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaDi", "..\AvaloniaDi\src\AvaloniaDi\AvaloniaDi.csproj", "{F52AF2A2-A167-4502-96EC-34F43955A4FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Percival", "..\Percival\src\Percival\Percival.csproj", "{F52AF2A2-A167-4502-96EC-34F43955A4FB}"
 EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution

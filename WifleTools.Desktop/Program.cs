@@ -1,6 +1,6 @@
 ﻿using Avalonia;
 using System;
-using AvaloniaDi;
+using Percival;
 using WifleTools.Data;
 using WifleTools.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +23,7 @@ public static class Program
 	{
 		StartupUtils.EnsureAppdataDirectoryExists();
  
-		var builder =  DiAppBuilder.Create()
+		var builder =  PercivalBuilder.Create()
 			.AddApp<App>()
 			.AddMainWindow<MainWindow, CustomMainWindowViewModel>();
  
@@ -32,7 +32,7 @@ public static class Program
 			.AddScoped(typeof(ICrudService<>), typeof(CrudService<>))
 			.AddScoped(typeof(IStatusLogger<>), typeof(StatusLogger<>));
  
-		// AvaloniaDi builds the service container here,
+		// Percival builds the service container here,
 		// but returns the Avalonia app builder
 		// So we need to hang onto this for now
 		var avaloniaBuilder = builder.Build();
