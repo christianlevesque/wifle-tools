@@ -72,43 +72,4 @@ public static class Program
 			Directory.CreateDirectory(fileWriter.BaseDirectory);
 		}
 	}
-
-	private static async Task MigrateDb(
-		IServiceProvider serviceProvider,
-		IFileWriter fileWriter)
-	{
-		var backupPath = Path.Combine(fileWriter.BaseDirectory, $"{AppDbContext.SqliteDbName}.backup");
-		var enableBackup = File.Exists(fileWriter.DbContextFullPath);
-
-		// Make backup of existing database
-		if (enableBackup)
-		{
-			File.Copy(fileWriter.DbContextFullPath, backupPath);
-		}
-
-		// Perform migration
-		try
-		{
-			await using var scope = serviceProvider.CreateAsyncScope();
-			var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-			var migrator = dbContext.Database.GetService<IMigrator>();
-			await migrator.MigrateAsync();
-		}
-		catch (Exception)
-		{
-			if (enableBackup)
-			{
-				File.Copy(backupPath, fileWriter.DbContextFullPath);
-			}
-
-			// TODO: find a way to inform Wifle that there's a problem
-			return;
-		}
-
-		// Migration was successful, so delete backup
-		if (enableBackup)
-		{
-			File.Delete(backupPath);
-		}
-	}
 }

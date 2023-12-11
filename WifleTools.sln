@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32519.111
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WifleTools.App", "WifleTools.App\WifleTools.App.csproj", "{C782156B-2267-4AF8-B542-50B7C41EE3A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WifleTools.Blazor", "WifleTools.Blazor\WifleTools.Blazor.csproj", "{C782156B-2267-4AF8-B542-50B7C41EE3A2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WifleTools.Services", "WifleTools.Services\WifleTools.Services.csproj", "{A1289AAB-A4BE-4F30-8DF0-86A462A48B9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WifleTools.Desktop", "WifleTools.Desktop\WifleTools.Desktop.csproj", "{D51CCAA4-53DB-4ACA-BD63-7E2C4292BC00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaDi", "..\AvaloniaDi\src\AvaloniaDi\AvaloniaDi.csproj", "{F52AF2A2-A167-4502-96EC-34F43955A4FB}"
 EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
@@ -49,5 +53,29 @@ Global
 		{A1289AAB-A4BE-4F30-8DF0-86A462A48B9F}.Release|x64.Build.0 = Release|Any CPU
 		{A1289AAB-A4BE-4F30-8DF0-86A462A48B9F}.Release|x86.ActiveCfg = Release|Any CPU
 		{A1289AAB-A4BE-4F30-8DF0-86A462A48B9F}.Release|x86.Build.0 = Release|Any CPU
+		{D51CCAA4-53DB-4ACA-BD63-7E2C4292BC00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D51CCAA4-53DB-4ACA-BD63-7E2C4292BC00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D51CCAA4-53DB-4ACA-BD63-7E2C4292BC00}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D51CCAA4-53DB-4ACA-BD63-7E2C4292BC00}.Debug|x64.Build.0 = Debug|Any CPU
+		{D51CCAA4-53DB-4ACA-BD63-7E2C4292BC00}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D51CCAA4-53DB-4ACA-BD63-7E2C4292BC00}.Debug|x86.Build.0 = Debug|Any CPU
+		{D51CCAA4-53DB-4ACA-BD63-7E2C4292BC00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D51CCAA4-53DB-4ACA-BD63-7E2C4292BC00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D51CCAA4-53DB-4ACA-BD63-7E2C4292BC00}.Release|x64.ActiveCfg = Release|Any CPU
+		{D51CCAA4-53DB-4ACA-BD63-7E2C4292BC00}.Release|x64.Build.0 = Release|Any CPU
+		{D51CCAA4-53DB-4ACA-BD63-7E2C4292BC00}.Release|x86.ActiveCfg = Release|Any CPU
+		{D51CCAA4-53DB-4ACA-BD63-7E2C4292BC00}.Release|x86.Build.0 = Release|Any CPU
+		{F52AF2A2-A167-4502-96EC-34F43955A4FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F52AF2A2-A167-4502-96EC-34F43955A4FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F52AF2A2-A167-4502-96EC-34F43955A4FB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F52AF2A2-A167-4502-96EC-34F43955A4FB}.Debug|x64.Build.0 = Debug|Any CPU
+		{F52AF2A2-A167-4502-96EC-34F43955A4FB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F52AF2A2-A167-4502-96EC-34F43955A4FB}.Debug|x86.Build.0 = Debug|Any CPU
+		{F52AF2A2-A167-4502-96EC-34F43955A4FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F52AF2A2-A167-4502-96EC-34F43955A4FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F52AF2A2-A167-4502-96EC-34F43955A4FB}.Release|x64.ActiveCfg = Release|Any CPU
+		{F52AF2A2-A167-4502-96EC-34F43955A4FB}.Release|x64.Build.0 = Release|Any CPU
+		{F52AF2A2-A167-4502-96EC-34F43955A4FB}.Release|x86.ActiveCfg = Release|Any CPU
+		{F52AF2A2-A167-4502-96EC-34F43955A4FB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
