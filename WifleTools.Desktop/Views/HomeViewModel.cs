@@ -1,4 +1,5 @@
-﻿using Percival.Routing;
+﻿using System.Threading.Tasks;
+using Percival.Routing;
 using Percival.Views;
 
 namespace WifleTools.Views;
@@ -12,8 +13,6 @@ public class HomeViewModel : IViewModel
 		_navManager = navManager;
 	}
 
-	public void GoAbout()
-	{
-		_navManager.NavigateTo(Urls.About);
-	}
+	public Task GoAbout()
+		=> _navManager.NavigateTo(Urls.About);
 }

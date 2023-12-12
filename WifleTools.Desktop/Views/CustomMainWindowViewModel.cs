@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Percival.Routing;
 using Percival.Views;
 using WifleTools.Utils;
@@ -32,10 +33,10 @@ public partial class CustomMainWindowViewModel : MainWindowViewModel
 	}
 
 	[RelayCommand]
-	private void GoHome() => _navManager.NavigateTo(Urls.Home);
+	private Task GoHome() => _navManager.NavigateTo(Urls.Home);
 
 	[RelayCommand]
-	private void GoAbout() => _navManager.NavigateTo(Urls.About);
+	private Task GoAbout() => _navManager.NavigateTo(Urls.About);
 
 	[RelayCommand]
 	private void OpenGpl()
