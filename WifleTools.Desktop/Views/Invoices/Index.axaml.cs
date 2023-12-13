@@ -5,20 +5,17 @@ using Percival.Views;
 namespace WifleTools.Views.Invoices;
 
 [Route(Urls.Invoices.Index)]
-public partial class Index : PercivalControl
+public partial class Index : PercivalControl<IndexViewModel>
 {
-	public Index()
+	public Index(IndexViewModel vm) : base(vm)
 	{
 		InitializeComponent();
 	}
 
-	[Inject]
-	private IndexViewModel Vm { get; set; } = default!;
-
 	/// <inheritdoc />
 	public override Task PercivalInitialized()
 	{
-		DataContext = Vm;
-		return Task.CompletedTask;
+		System.Diagnostics.Debug.WriteLine($"VM is {Vm.Invoices}");
+		return Vm.LoadInvoices();
 	}
 }

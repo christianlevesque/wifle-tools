@@ -15,21 +15,20 @@ public partial class IndexViewModel : ObservableObject, IViewModel
 	public IndexViewModel(ICrudService<Invoice> invoiceService)
 	{
 		_invoiceService = invoiceService;
-		_ = LoadInvoices();
 	}
 
-	public ObservableCollection<Invoice> Invoices { get; set; } = new();
+	[ObservableProperty]
+	private List<Invoice> _invoices = new();
 
-	[RelayCommand]
-	private async Task LoadInvoices()
+	public async Task LoadInvoices()
 	{
 		System.Diagnostics.Debug.WriteLine("Loading new invoices");
-		// Invoices = await _invoiceService.Get();
-		Invoices.Clear();
-		var invoices = await _invoiceService.Get();
-		foreach (var i in invoices)
-		{
-			Invoices.Add(i);
-		}
+		Invoices = await _invoiceService.Get();
+		// Invoices.Clear();
+		// var invoices = await _invoiceService.Get();
+		// foreach (var i in invoices)
+		// {
+		// 	Invoices.Add(i);
+		// }
 	}
 }

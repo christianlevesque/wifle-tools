@@ -36,6 +36,7 @@ public static class Program
 			.AddMainWindow<MainWindow, CustomMainWindowViewModel>();
  
 		builder.Services
+			.AddLogging()
 			.AddDbContext<AppDbContext>(o => o.UseWifleDb())
 			.AddScoped(typeof(ICrudService<>), typeof(CrudService<>))
 			.AddScoped(typeof(IStatusLogger<>), typeof(StatusLogger<>));

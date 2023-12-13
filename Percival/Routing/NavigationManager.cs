@@ -42,32 +42,14 @@ public class NavigationManager : INavigationManager
 		OnNavigation?.Invoke(this, new NavigationEvent { Route = route });
 	}
 
-	protected async Task ActivateView(string route)
+	protected Task ActivateView(string route)
 	{
 		var routeType = RouteManager.GetRouteType(route);
 		var view = (UserControl)ServiceScope!.ServiceProvider.GetRequiredService(routeType);
 		ActiveViewModel.ActiveView = view;
 
-		var properties = ActiveViewModel.ActiveView!
-			.GetType()
-			.GetProperties();
-
-		foreach (var prop in properties)
-		{
-			var inject = prop.GetCustomAttribute<InjectAttribute>();
-			if (inject is null)
-			{
-				continue;
-			}
-
-			var service = ServiceScope.ServiceProvider.GetRequiredService(prop.PropertyType);
-			var setter = prop.GetSetMethod()!;
-			setter.Invoke(ActiveViewModel.ActiveView, new [] {service});
-		}
-
-		if (ActiveViewModel.ActiveView is PercivalControl pc)
-		{
-			await pc.PercivalInitialized();
-		}
+		return ActiveViewModel.ActiveView is PercivalControl pc
+			? pc.PercivalInitialized()
+			: Task.CompletedTask;
 	}
 }

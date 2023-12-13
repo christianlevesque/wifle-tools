@@ -1,24 +1,13 @@
-﻿using System.Threading.Tasks;
-using Percival.Routing;
+﻿using Percival.Routing;
 using Percival.Views;
 
 namespace WifleTools.Views;
 
 [Route(Urls.About)]
-public partial class About : PercivalControl
+public partial class About : PercivalControl<AboutViewModel>
 {
-	public About()
+	public About(AboutViewModel vm) : base(vm)
 	{
 		InitializeComponent();
-	}
-
-	[Inject]
-	private AboutViewModel Vm { get; set; } = default!;
-
-	/// <inheritdoc />
-	public override Task PercivalInitialized()
-	{
-		DataContext = Vm;
-		return Task.CompletedTask;
 	}
 }
