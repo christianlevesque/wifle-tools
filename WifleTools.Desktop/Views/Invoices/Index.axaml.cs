@@ -2,18 +2,18 @@
 using Percival.Routing;
 using Percival.Views;
 
-namespace WifleTools.Views;
+namespace WifleTools.Views.Invoices;
 
-[Route(Urls.About)]
-public partial class About : PercivalControl
+[Route(Urls.Invoices.Index)]
+public partial class Index : PercivalControl
 {
-	public About()
+	public Index()
 	{
 		InitializeComponent();
 	}
 
 	[Inject]
-	private AboutViewModel Vm { get; set; } = default!;
+	private IndexViewModel Vm { get; set; } = default!;
 
 	/// <inheritdoc />
 	public override Task PercivalInitialized()

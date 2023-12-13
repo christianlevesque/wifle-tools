@@ -27,6 +27,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <UpToDateCheckInput Remove="Views\Plot\Plot.axaml" />
+	  <Compile Update="Views\Invoices\Index.axaml.cs">
+	    <DependentUpon>About.axaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
 	</ItemGroup>
 </Project>

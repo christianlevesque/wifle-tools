@@ -12,11 +12,19 @@ namespace WifleTools;
 
 public static class Program
 {
+	private static IServiceProvider ServiceProvider = default!;
+
     // Initialization code. Don't use any Avalonia, third-party APIs or any
     // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
-    [STAThread]
-    public static void Main(string[] args) => BuildAvaloniaApp()
-        .StartWithClassicDesktopLifetime(args);
+	[STAThread]
+	public static void Main(string[] args)
+	{
+		var app = BuildAvaloniaApp();
+
+		ServiceProvider.MigrateDb();
+
+		app.StartWithClassicDesktopLifetime(args);
+	}
 
     // Avalonia configuration, don't remove; also used by visual designer.
 	public static AppBuilder BuildAvaloniaApp()
@@ -35,11 +43,12 @@ public static class Program
 		// Percival builds the service container here,
 		// but returns the Avalonia app builder
 		// So we need to hang onto this for now
-		var avaloniaBuilder = builder.Build();
- 
-		builder.ServiceProvider!.MigrateDb();
- 
-		return avaloniaBuilder
+		var app = builder
+			.Build();
+
+		ServiceProvider = builder.ServiceProvider!;
+		
+		return app
 			.UsePlatformDetect()
 			.LogToTrace();
 	}

@@ -18,7 +18,7 @@ public static class StartupUtils
 		// Make backup of existing database
 		if (enableBackup)
 		{
-			File.Copy(dbPath, backupPath);
+			File.Copy(dbPath, backupPath, true);
 		}
 
 		// Perform migration
@@ -33,7 +33,7 @@ public static class StartupUtils
 		{
 			if (enableBackup)
 			{
-				File.Copy(backupPath, dbPath);
+				File.Copy(backupPath, dbPath, true);
 				File.Delete(backupPath);
 			}
 

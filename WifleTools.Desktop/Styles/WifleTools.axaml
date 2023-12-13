@@ -9,6 +9,7 @@
 
 	<Style Selector="TextBlock:not(.h1):not(.h2):not(.bold)">
 		<Setter Property="Margin" Value="0 0 0 25"/>
+		<Setter Property="TextWrapping" Value="Wrap"/>
 	</Style>
 
 	<Style Selector="StackPanel.mainMenu">

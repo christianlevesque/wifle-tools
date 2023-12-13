@@ -24,7 +24,7 @@ public partial class CustomMainWindowViewModel : MainWindowViewModel
 		MainMenuItems = new[]
 		{
 			new MainMenuItem("Home", GoHomeCommand),
-			new MainMenuItem("Invoices", GoHomeCommand),
+			new MainMenuItem("Invoices", GoInvoicesCommand),
 			new MainMenuItem("Clients", GoHomeCommand),
 			new MainMenuItem("Banking", GoHomeCommand),
 			new MainMenuItem("Recipients", GoHomeCommand),
@@ -34,6 +34,9 @@ public partial class CustomMainWindowViewModel : MainWindowViewModel
 
 	[RelayCommand]
 	private Task GoHome() => _navManager.NavigateTo(Urls.Home);
+
+	[RelayCommand]
+	private Task GoInvoices() => _navManager.NavigateTo(Urls.Invoices.Index);
 
 	[RelayCommand]
 	private Task GoAbout() => _navManager.NavigateTo(Urls.About);
