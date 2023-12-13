@@ -18,7 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Percival\src\Percival\Percival.csproj" />
+		<ProjectReference Include="..\Percival\Percival.csproj" />
 		<ProjectReference Include="..\WifleTools.Services\WifleTools.Services.csproj" />
 	</ItemGroup>
 
