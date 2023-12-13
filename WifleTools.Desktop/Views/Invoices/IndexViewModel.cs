@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Percival.Views;
 using WifleTools.Data;
 
@@ -12,6 +12,13 @@ public partial class IndexViewModel : ObservableObject, IViewModel
 {
 	private readonly ICrudService<Invoice> _invoiceService;
 
+	public IndexViewModel(List<Invoice> invoices)
+	{
+		_invoices = invoices;
+		_invoiceService = default!;
+	}
+
+	[ActivatorUtilitiesConstructor]
 	public IndexViewModel(ICrudService<Invoice> invoiceService)
 	{
 		_invoiceService = invoiceService;
@@ -23,7 +30,14 @@ public partial class IndexViewModel : ObservableObject, IViewModel
 	public async Task LoadInvoices()
 	{
 		System.Diagnostics.Debug.WriteLine("Loading new invoices");
-		Invoices = await _invoiceService.Get();
+		Invoices = await _invoiceService.Get(
+			set =>
+			{
+				return set
+					.Include(i => i.Client)
+					.Include(i => i.Recipient)
+					.Include(i => i.Account);
+			});
 		// Invoices.Clear();
 		// var invoices = await _invoiceService.Get();
 		// foreach (var i in invoices)

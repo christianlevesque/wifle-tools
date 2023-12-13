@@ -6,13 +6,21 @@ namespace Percival.Views;
 
 public abstract class PercivalControl : UserControl
 {
+	protected PercivalControl() {}
+
 	public virtual Task PercivalInitialized()
 		=> Task.CompletedTask;
 }
 
 public abstract class PercivalControl<TViewModel> : PercivalControl
 {
-	protected readonly TViewModel Vm;
+	protected TViewModel Vm;
+
+	// Only use this constructor to enable the XAML previewer
+	protected PercivalControl()
+	{
+		Vm = default!;
+	}
 
 	/// <inheritdoc />
 	protected PercivalControl(TViewModel vm)

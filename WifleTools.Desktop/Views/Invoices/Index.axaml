@@ -9,16 +9,31 @@
 	d:DesignHeight="450"
 	x:Class="WifleTools.Views.Invoices.Index"
 	x:DataType="invoices:IndexViewModel">
-	<StackPanel>
-		<TextBlock>Just some items</TextBlock>
+	<StackPanel
+		Orientation="Horizontal"
+		HorizontalAlignment="Left">
 		<ItemsControl ItemsSource="{Binding Invoices}">
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
-					<StackPanel
-						Orientation="Horizontal"
-						HorizontalAlignment="Left">
-						<TextBlock Text="{Binding For}"/>
-					</StackPanel>
+					<Border
+						BorderBrush="{DynamicResource Black}"
+						Padding="15"
+						BorderThickness="3">
+						<StackPanel>
+                        	<StackPanel
+                        		Orientation="Horizontal"
+                        		HorizontalAlignment="Left"
+                        		Margin="0 0 0 25">
+                        		<TextBlock Text="{Binding For}"/>
+                        	</StackPanel>
+                        	<TextBlock>
+                        		<TextBlock Text="{Binding Client.Name}"/>
+                        		(<TextBlock Text="{Binding CreatedAt}"/>)
+                        	</TextBlock>
+                        	<TextBlock>Words: <TextBlock Text="{Binding Amount}"/></TextBlock>
+                        	<TextBlock>Rate: $0.<TextBlock Text="{Binding Client.Rate}"/></TextBlock>
+                        </StackPanel>
+					</Border>
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>
 		</ItemsControl>

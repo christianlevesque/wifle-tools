@@ -30,6 +30,7 @@ public partial class CustomMainWindowViewModel : MainWindowViewModel
 			new MainMenuItem("Recipients", GoHomeCommand),
 			new MainMenuItem("About", GoAboutCommand)
 		};
+		GoInvoicesCommand.Execute(null);
 	}
 
 	[RelayCommand]

@@ -16,7 +16,7 @@
 		<TextBlock Classes="h2">
 			License information
 		</TextBlock>
-		<TextBlock>
+		<TextBlock Classes="paragraph">
 			Licensed to <TextBlock Classes="bold">Wifle</TextBlock> until <TextBlock Classes="bold">forever</TextBlock>
 		</TextBlock>
 
@@ -24,7 +24,7 @@
 			Software disclosures
 		</TextBlock>
 
-		<TextBlock>
+		<TextBlock Classes="paragraph">
 			Wifle Tools was creating using Hubber's ginormous brain. Plus a few other things, but mostly Hubber's ginormous brain.
 		</TextBlock>
 	</StackPanel>
