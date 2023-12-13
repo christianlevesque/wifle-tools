@@ -8,9 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="7.3.0" />
 		<PackageReference Include="MudBlazor" Version="6.11.1"/>
-		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.6" />
 	</ItemGroup>
 
 	<ItemGroup>
