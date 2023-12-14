@@ -1,15 +1,15 @@
 {
 	"executable": "WifleTools.Blazor",
 	"splashscreen": {
-		"imageFile": ""
+		"imageFile": "/wwwroot/splash-screen.png"
 	},
-	"name": "Wifle Tools",
+	"name": "WifleTools",
 	"author": "Hubber <3",
 	"singleInstance": false,
 	"environment": "Production",
 	"build": {
 		"appId": "com.WifleTools.Blazor.app",
-		"productName": "Wifle Tools",
+		"productName": "WifleTools",
 		"copyright": "Copyright © 2023",
 		"buildVersion": "1.0.0",
 		"compression": "maximum",
