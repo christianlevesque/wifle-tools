@@ -6,15 +6,15 @@
 <head>
 	@* Just the basics *@
 	<meta charset="utf-8"/>
-	<meta name="viewport"
-	      content="width=device-width, initial-scale=1.0"/>
+	<meta content="width=device-width, initial-scale=1.0"
+	      name="viewport"/>
 
 	@* Fonts *@
-	<link rel="preconnect"
-	      href="https://fonts.googleapis.com">
-	<link rel="preconnect"
+	<link href="https://fonts.googleapis.com"
+	      rel="preconnect">
+	<link crossorigin
 	      href="https://fonts.gstatic.com"
-	      crossorigin>
+	      rel="preconnect">
 	<link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
 	      rel="stylesheet">
 
@@ -28,21 +28,25 @@
 	<title>WifleTools</title>
 </head>
 <body class="min-vh-100">
-    @RenderBody()
+@RenderBody()
 
-    <div id="blazor-error-ui">
-        <environment include="Staging,Production">
-            An error has occurred. This application may no longer respond until reloaded.
-        </environment>
-        <environment include="Development">
-            An unhandled exception has occurred. See browser dev tools for details.
-        </environment>
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
+<div id="blazor-error-ui">
+	<environment include="Staging,Production">
+		An error has occurred. This application may no longer respond until reloaded.
+	</environment>
+	<environment include="Development">
+		An unhandled exception has occurred. See browser dev tools for details.
+	</environment>
+	<a class="reload"
+	   href="">
+		Reload
+	</a>
+	<a class="dismiss">🗙</a>
+</div>
 
-	<script src="~/_framework/blazor.server.js"></script>
-	<script src="/_content/MudBlazor/MudBlazor.min.js"></script>
-	<script src="~/js/site.js"></script>    
+<script>process = undefined;</script>
+<script src="~/_framework/blazor.server.js"></script>
+<script src="/_content/MudBlazor/MudBlazor.min.js"></script>
+<script src="~/js/site.js"></script>
 </body>
 </html>
