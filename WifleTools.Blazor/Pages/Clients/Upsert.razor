@@ -53,13 +53,7 @@
 
 		if (IsEditing)
 		{
-			await SubmitRequest(
-				async () =>
-				{
-					Model = await Service.Get(Id!.Value);
-					StateHasChanged();
-					return true;
-				});
+			await SubmitRequest(async () => Model = await Service.Get(Id!.Value));
 		}
 	}
 

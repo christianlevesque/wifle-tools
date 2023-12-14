@@ -111,10 +111,6 @@
 				_clients = await ClientService.Get();
 				_accounts = await AccountService.Get();
 				_recipients = await RecipientService.Get();
-
-				StateHasChanged();
-
-				return true;
 			});
 	}
 

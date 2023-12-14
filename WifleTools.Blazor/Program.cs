@@ -58,22 +58,17 @@ public static class Program
 		app.MapBlazorHub();
 		app.MapFallbackToPage("/_Host");
 
-		var logger = app.Services.GetRequiredService<ILogger<CrudService<Invoice>>>();
-		logger.LogInformation("Logger created");
 		if (HybridSupport.IsElectronActive)
 		{
-			logger.LogInformation("Electron active");
-			CreateElectronWindow(logger);
+			CreateElectronWindow();
 		}
 
 		app.Run();
 	}
 
-	private static async void CreateElectronWindow(ILogger<CrudService<Invoice>> logger)
+	private static async void CreateElectronWindow()
 	{
-		logger.LogInformation("Attempting to fetch primary display");
 		var screen = await Electron.Screen.GetPrimaryDisplayAsync();
-		logger.LogInformation("Primary display retrieved");
 		var options = new BrowserWindowOptions
 		{
 			Title = "Wifle Tools",
@@ -81,10 +76,7 @@ public static class Program
 			Width = screen.Size.Width
 		};
 
-		logger.LogInformation("Attempting to create Electron window");
 		var window = await Electron.WindowManager.CreateWindowAsync(options);
-		logger.LogInformation("Electron window created");
 		window.OnClosed += () => Electron.App.Quit();
-		logger.LogInformation("CreateElectronWindow() returning");
 	}
 }

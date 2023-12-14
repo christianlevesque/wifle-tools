@@ -36,45 +36,82 @@ public abstract class ActionPageBase<TPage, TModel> : ComponentBase
 	{
 		WasSuccessful = false;
 
-		Logger!.LogInformation("Submitting service request");
+		Logger.LogInformation("Submitting service request");
 
 		// Do the work
 		_counter++;
+		StateHasChanged();
+		Logger.LogInformation("UI re-rendered after incrementing counter");
 		try
 		{
 			WasSuccessful = await submitFunc();
+			Logger.LogInformation("Service request submitted");
 		}
 		catch (Exception e)
 		{
+			Logger.LogInformation("Service request failed, see exception message");
 			StatusLogger.Error(e);
 		}
 		--_counter;
-
-		Logger!.LogInformation("Service request submitted");
+		StateHasChanged();
+		Logger.LogInformation("UI re-rendered after decrementing counter");
 	}
 
 	protected async Task<TReturn> SubmitRequest<TReturn>(Func<Task<TReturn>> submitFunc)
 	{
 		WasSuccessful = false;
 
-		Logger!.LogInformation("Submitting service request");
+		Logger.LogInformation("Submitting service request");
 
 		++_counter;
+		StateHasChanged();
+		Logger.LogInformation("UI re-rendered after incrementing counter");
+
 		TReturn result = default!;
 		try
 		{
 			result = await submitFunc();
+			Logger.LogInformation("Service request submitted");
 		}
 		catch (Exception e)
 		{
+			Logger.LogInformation("Service request failed, see exception message");
 			StatusLogger.Error(e);
 		}
 		--_counter;
-
-		Logger!.LogInformation("Service request submitted");
-
 		WasSuccessful = result is not null;
+		StateHasChanged();
+		Logger.LogInformation("UI re-rendered after decrementing counter");
 
 		return result;
+	}
+
+	protected async Task SubmitRequest(Func<Task> submitFunc)
+	{
+		WasSuccessful = false;
+
+		Logger.LogInformation("Submitting service request");
+
+		// Do the work
+		_counter++;
+		StateHasChanged();
+		Logger.LogInformation("UI re-rendered after incrementing counter");
+
+		try
+		{
+			await submitFunc();
+			Logger.LogInformation("Service request submitted");
+			WasSuccessful = true;
+		}
+		catch (Exception e)
+		{
+			Logger.LogInformation("Service request failed, see exception message");
+			StatusLogger.Error(e);
+		}
+		--_counter;
+		StateHasChanged();
+		Logger.LogInformation("UI re-rendered after decrementing counter");
+
+		Logger.LogInformation("Service request submitted");
 	}
 }

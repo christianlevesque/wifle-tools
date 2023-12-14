@@ -1,4 +1,5 @@
 ﻿@using Microsoft.EntityFrameworkCore
+@using Microsoft.Extensions.Logging
 @using WifleTools.Pdf
 @inherits ActionPageBase<Index, Invoice>
 @attribute [Route(Urls.Invoices.Index)]
@@ -10,7 +11,7 @@
 			<HeaderActions>
 				<MudIconButton Icon="@Icons.Material.Filled.Send"
 				               Color="Color.Secondary"
-				               OnClick="@(async () => await DownloadPdf(context))"/>
+				               OnClick="@(() => DownloadPdf(context))"/>
 				<MudIconButton Icon="@Icons.Material.Filled.Edit"
 				               Href="@($"{Urls.Invoices.Index}/{context.Id}")"
 				               Color="Color.Primary"/>
@@ -41,11 +42,11 @@
 	private List<Invoice>? _invoices;
 
 	/// <inheritdoc />
-	protected override async Task OnAfterRenderAsync(bool firstRender)
+	protected override Task OnAfterRenderAsync(bool firstRender)
 	{
-		if (!firstRender) return;
+		if (!firstRender) return Task.CompletedTask;
 
-		await SubmitRequest(
+		return SubmitRequest(
 			async () =>
 			{
 				_invoices = await Service.Get(
@@ -55,9 +56,6 @@
 							.Include(i => i.Client)
 							.Include(i => i.Account);
 					});
-				StateHasChanged();
-
-				return true;
 			});
 	}
 

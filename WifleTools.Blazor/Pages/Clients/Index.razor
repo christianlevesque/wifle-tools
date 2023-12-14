@@ -28,13 +28,7 @@
 	{
 		if (!firstRender) return;
 
-		await SubmitRequest(
-			async () =>
-			{
-				_clients = await Service.Get();
-				StateHasChanged();
-				return true;
-			});
+		await SubmitRequest(async () => _clients = await Service.Get());
 	}
 
 }

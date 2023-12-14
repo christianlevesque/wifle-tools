@@ -23,13 +23,7 @@
 	{
 		if (!firstRender) return;
 
-		await SubmitRequest(
-			async () =>
-			{
-				_recipients = await Service.Get();
-				StateHasChanged();
-				return true;
-			});
+		await SubmitRequest(async () => _recipients = await Service.Get());
 	}
 
 }
