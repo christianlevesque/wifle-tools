@@ -78,7 +78,7 @@ public class TableComponent : IComponent
         				.Element(LastBodyCellStyle)
 						.AlignRight()
         				.Text(
-        					Utils.GetInvoiceAmount(_invoice)
+        					InvoiceUtils.GetInvoiceAmount(_invoice)
         						.ToCurrencyString());
         
         			

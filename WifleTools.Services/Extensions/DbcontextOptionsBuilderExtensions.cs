@@ -7,6 +7,6 @@ public static class DbcontextOptionsBuilderExtensions
 {
 	public static void UseWifleDb(this DbContextOptionsBuilder self)
 	{
-		self.UseSqlite($"Data Source={Utils.GetDbContextFullPath()}");
+		self.UseSqlite($"Data Source={FileUtils.GetDbContextFullPath()}");
 	}
 }

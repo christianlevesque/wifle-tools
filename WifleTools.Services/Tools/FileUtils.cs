@@ -5,7 +5,7 @@ using WifleTools.Data;
 
 namespace WifleTools.Tools;
 
-public static class Utils
+public static class FileUtils
 {
 	public const string BaseAppFolderName = "WifleTools";
 
@@ -15,13 +15,17 @@ public static class Utils
 		return Path.Combine(baseDirectory, BaseAppFolderName);
 	}
 
+	public static string GetDesktopDirectory()
+		=> Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+
 	public static string GetDbContextFullPath()
 		=> Path.Combine(GetBaseDirectory(), AppDbContext.SqliteDbName);
 
 	public static string GetDbContextBackupFullPath()
 		=> $"{GetDbContextFullPath()}.backup";
 
-	public static int GetInvoiceAmount(Invoice invoice) => invoice.Amount * invoice.Client.Rate;
-
-	public static string ToCurrencyString(this int value) => $"{(double)value / 100:C}";
+	public static string GetInvoiceFullPath(Invoice invoice)
+		=> Path.Combine(
+			GetDesktopDirectory(),
+			InvoiceUtils.CreateInvoiceFilename(invoice));
 }

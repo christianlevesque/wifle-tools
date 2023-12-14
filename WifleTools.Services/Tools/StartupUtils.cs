@@ -11,8 +11,8 @@ public static class StartupUtils
 {
 	public static void MigrateDb(this IServiceProvider self)
 	{
-		var dbPath = Utils.GetDbContextFullPath();
-		var backupPath = Utils.GetDbContextBackupFullPath();
+		var dbPath = FileUtils.GetDbContextFullPath();
+		var backupPath = FileUtils.GetDbContextBackupFullPath();
 		var enableBackup = File.Exists(dbPath);
 
 		// Make backup of existing database
@@ -49,7 +49,7 @@ public static class StartupUtils
 
 	public static void EnsureAppdataDirectoryExists()
 	{
-		var dirname = Utils.GetBaseDirectory();
+		var dirname = FileUtils.GetBaseDirectory();
 		if (!Directory.Exists(dirname))
 		{
 			Directory.CreateDirectory(dirname);

@@ -55,7 +55,7 @@ public class BodyComponent : IComponent
 							text
 								.Element()
 								.Width(12);
-							text.Span(Utils.GetInvoiceAmount(_invoice).ToCurrencyString());
+							text.Span(InvoiceUtils.GetInvoiceAmount(_invoice).ToCurrencyString());
 						});
 
 					column

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -33,13 +32,10 @@ public class InvoicePdfGenerator
 				.OrderBy(i => i.CreatedAt)
 				.ToListAsync();
 			var number = existing.FindIndex(i => i.Id == invoice.Id) + 1;
-			invoice.InvoiceNumber = $"{invoice.Date.Year}{invoice.Date.Month}{invoice.Date.Day}{number}";
+			invoice.InvoiceNumber = InvoiceUtils.CreateInvoiceNumber(invoice, number);
 
 			var pdf = new InvoiceDocument(invoice);
-			result.File = new MemoryStream();
-			pdf.GeneratePdf(result.File);
-
-			result.Filename = $"{invoice.Client.Name}_{invoice.InvoiceNumber}.pdf";
+			pdf.GeneratePdf(FileUtils.GetInvoiceFullPath(invoice));
 
 			_statusLogger.Success($"Invoice for {invoice.Client.Name} was exported to your desktop!");
 			_statusLogger.Success("Look at Wifle EARN! Look at her EARN!");
